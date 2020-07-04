@@ -20,6 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sim.cms.entities.Employee;
 import com.sim.cms.exception.EmployeeIdNotFoundException;
 import com.sim.cms.service.EmployeeService;
+import com.sim.cms.vo.ApiResponse;
 import com.sim.cms.vo.EmployeeDTO;
 
 import lombok.extern.java.Log;
@@ -39,10 +40,10 @@ public class EmployeeController {
 		return employeeService.getEmployees();
 	}
 	@PostMapping(path = { "/employee/add" })
-	public ResponseEntity<String> create(@RequestBody EmployeeDTO employeeDTO) {
+	public ApiResponse<EmployeeDTO> create(@RequestBody EmployeeDTO employeeDTO) {
 		Employee employee = convertObjToXXX(employeeDTO, new TypeReference<Employee>(){});
 		employeeService.save(employee);
-		return new ResponseEntity<>("Employee Deatails are SuccessFully Added.",HttpStatus.CREATED);
+		return new ApiResponse<>(HttpStatus.CREATED.value(), "Employee Deatails are SuccessFully Added", employeeDTO);
 	}
 	@PutMapping(path = { "/employee/update/{id}" })
 	public ResponseEntity<Employee> update(@RequestBody EmployeeDTO employeeDTO,@PathVariable("id") int id ) throws EmployeeIdNotFoundException {
@@ -63,12 +64,12 @@ public class EmployeeController {
 		return new ResponseEntity<>(employee.get(),HttpStatus.OK);		
 	}
 	@DeleteMapping(path = { "/employee/delete/{id}" })
-	public ResponseEntity<String> delete(@PathVariable("id") int id) throws EmployeeIdNotFoundException {		
+	public ApiResponse<Void> delete(@PathVariable("id") int id) throws EmployeeIdNotFoundException {		
 		Optional<Employee> employee=employeeService.getEmployeeById(id);
 		if(!employee.isPresent()) 
 			throw new EmployeeIdNotFoundException(ACTION.replace(ACTION_1, id+""));	
 		employeeService.delete(id);
-		return new ResponseEntity<>("Successfully Deleted.",HttpStatus.OK);
+		return new ApiResponse<>(HttpStatus.OK.value(),"Employee deleted successfully.",null);
 	}
 	
 	public  Employee convertObjToXXX(Object o, TypeReference<Employee> ref) {
