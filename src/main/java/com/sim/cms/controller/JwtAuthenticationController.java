@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sim.cms.config.JwtTokenUtil;
 import com.sim.cms.config.JwtUserDetailsService;
+import com.sim.cms.entities.User;
 import com.sim.cms.vo.LoginRequest;
 import com.sim.cms.vo.LoginResponse;
 
@@ -37,10 +38,10 @@ public class JwtAuthenticationController {
 
 		final UserDetails userDetails = userDetailsService
 				.loadUserByUsername(authenticationRequest.getUsername());
-
+		User user=userDetailsService.findByUsername(authenticationRequest.getUsername());
 		final String token = jwtTokenUtil.generateToken(userDetails);
 
-		return ResponseEntity.ok(new LoginResponse(token));
+		return ResponseEntity.ok(new LoginResponse(token,user.getId()));
 	}
 	
 	@PostMapping(value = "/register")

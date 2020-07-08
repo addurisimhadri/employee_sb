@@ -3,6 +3,7 @@ package com.sim.cms.service.impl;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.sim.cms.entities.Employee;
@@ -15,8 +16,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Autowired
 	EmployeeRepository employeeRepository;
 	@Override
-	public Iterable<Employee> getEmployees() {
-		Iterable<Employee> employees=employeeRepository.findAll();;
+	public Iterable<Employee> getEmployees(Pageable pageable) {
+		Iterable<Employee> employees=employeeRepository.findAll(pageable);
 		return employees;
 	}
 	@Override

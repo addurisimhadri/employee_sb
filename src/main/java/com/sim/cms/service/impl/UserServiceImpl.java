@@ -19,6 +19,10 @@ public class UserServiceImpl implements UserService {
 	public Optional<User> validateUser(LoginRequest login) {
 		return userRepository.findByUsernameAndPassword(login.getUsername(), login.getPassword());
 	}
+	@Override
+	public Optional<User> findById(long id) {
+		return userRepository.findById(id);
+	}
 	
 
 }

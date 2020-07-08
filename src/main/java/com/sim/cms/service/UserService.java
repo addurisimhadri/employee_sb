@@ -7,5 +7,6 @@ import com.sim.cms.vo.LoginRequest;
 
 public interface UserService {	
 	Optional<User> validateUser(LoginRequest login);
+	Optional<User> findById(long id);
 
 }

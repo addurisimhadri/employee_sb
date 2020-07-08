@@ -3,8 +3,8 @@ package com.sim.cms.controller;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,8 +36,8 @@ public class EmployeeController {
 	@Autowired
 	EmployeeService employeeService;
 	@GetMapping(value="/employee/getAll")	
-	public Iterable<Employee> getEmployee(){		
-		return employeeService.getEmployees();
+	public Iterable<Employee> getEmployee(Pageable pageable){		
+		return employeeService.getEmployees(pageable);
 	}
 	@PostMapping(path = { "/employee/add" })
 	public ApiResponse<EmployeeDTO> create(@RequestBody EmployeeDTO employeeDTO) {
@@ -46,22 +46,22 @@ public class EmployeeController {
 		return new ApiResponse<>(HttpStatus.CREATED.value(), "Employee Deatails are SuccessFully Added", employeeDTO);
 	}
 	@PutMapping(path = { "/employee/update/{id}" })
-	public ResponseEntity<Employee> update(@RequestBody EmployeeDTO employeeDTO,@PathVariable("id") int id ) throws EmployeeIdNotFoundException {
+	public ApiResponse<EmployeeDTO> update(@RequestBody EmployeeDTO employeeDTO,@PathVariable("id") int id ) throws EmployeeIdNotFoundException {
 		Employee employee = convertObjToXXX(employeeDTO, new TypeReference<Employee>(){});
 		log.info(employee+"");		
 		Optional<Employee> employeeOp=employeeService.getEmployeeById(id);
 		if(!employeeOp.isPresent()) 
 			throw new EmployeeIdNotFoundException(ACTION.replace(ACTION_1, id+""));	
 		employeeService.save(employee);
-		return new ResponseEntity<>(employee,HttpStatus.OK);
+		return new ApiResponse<>(HttpStatus.OK.value(), "Employee Deatails are SuccessFully Updated", employeeDTO);
 	}
 	@GetMapping(path = { "/employee/get/{id}" })
-	public ResponseEntity<Employee> getEmployee(@PathVariable("id") int id ) throws EmployeeIdNotFoundException {		
+	public ApiResponse<EmployeeDTO> getEmployee(@PathVariable("id") int id ) throws EmployeeIdNotFoundException {		
 		Optional<Employee> employee=employeeService.getEmployeeById(id);
 		if(!employee.isPresent()) 
 			throw new EmployeeIdNotFoundException(ACTION.replace(ACTION_1, id+""));	
 		
-		return new ResponseEntity<>(employee.get(),HttpStatus.OK);		
+		return new ApiResponse<>(HttpStatus.OK.value(), "Employee Deatails are Getting SuccessFully", employee.get());	
 	}
 	@DeleteMapping(path = { "/employee/delete/{id}" })
 	public ApiResponse<Void> delete(@PathVariable("id") int id) throws EmployeeIdNotFoundException {		
