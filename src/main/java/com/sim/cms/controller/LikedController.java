@@ -3,6 +3,7 @@ package com.sim.cms.controller;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,10 +16,11 @@ import com.sim.cms.service.PostMsgService;
 
 import lombok.extern.java.Log;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*",allowCredentials = "false")
 @RestController
 @Log
 public class LikedController {
-	private static final String ACTION = "Employee id is ##ID## Not exist.";
+	private static final String ACTION = "Liked id is ##ID## Not exist.";
 	private static final String ACTION_1 = "##ID##";
 	
 	@Autowired

@@ -1,13 +1,14 @@
 package com.sim.cms.service;
 
-import java.util.List;
 import java.util.Optional;
+
+import org.springframework.data.domain.Pageable;
 
 import com.sim.cms.entities.PostMsg;
 
 public interface PostMsgService {
 	
-	List<PostMsg> getAll();
+	Iterable<PostMsg> getAll(Pageable pageable);
 	Optional<PostMsg> findById(long id);
 	PostMsg save(PostMsg postMsg);
 	void delete(long id);

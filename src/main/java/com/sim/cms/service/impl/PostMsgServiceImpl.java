@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.sim.cms.entities.PostMsg;
@@ -17,8 +18,8 @@ public class PostMsgServiceImpl implements PostMsgService {
 	PostMsgRepository postMsgRepository;
 	
 	@Override
-	public List<PostMsg> getAll() {
-		return postMsgRepository.findAll();
+	public Iterable<PostMsg> getAll(Pageable pageable) {
+		return postMsgRepository.findAll(pageable);
 	}
 
 	@Override
