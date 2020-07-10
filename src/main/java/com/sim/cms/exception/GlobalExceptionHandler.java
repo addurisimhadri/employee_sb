@@ -25,4 +25,5 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		ErrorDetails errorDetails=new ErrorDetails("Employee Id Not Found Exception GEH", ex.getLocalizedMessage(), new Date());
 		return new ResponseEntity<>(errorDetails,HttpStatus.NOT_FOUND);
 	}
+	
 }

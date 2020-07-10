@@ -9,7 +9,7 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class PostMsg {	
+public class PostMsgDTO {
 	private long id;
 	private String msg;
 	private long userId;

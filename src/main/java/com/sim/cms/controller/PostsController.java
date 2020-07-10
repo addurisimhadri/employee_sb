@@ -53,6 +53,7 @@ public class PostsController {
 	
 	@PostMapping(value = "/add") 
 	public ApiResponse<PostMsg> postMsg(@RequestBody PostMsg postMsg) {
+		
 		postMsgService.save(postMsg);
 		return new ApiResponse<>(HttpStatus.OK.value(), "Post Deatails are SuccessFully Added", postMsg);
 	}
