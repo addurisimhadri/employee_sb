@@ -29,6 +29,11 @@ public class PostMsg {
 	@Column(name="created_at", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")	
 	private Timestamp createdAt;
 	@Transient
-	private String username;
+	private String username="";
+	@Transient
+	private ImageModel imageModel=new ImageModel();
+	@Transient
+	private boolean liked;
+	
 
 }

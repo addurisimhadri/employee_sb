@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ public class PostMsgServiceImpl implements PostMsgService {
 	PostMsgRepository postMsgRepository;
 	
 	@Override
-	public Iterable<PostMsg> getAll(Pageable pageable) {
+	public Iterable<PostMsg> getAll(Pageable pageable) {		
 		return postMsgRepository.findAll(pageable);
 	}
 
@@ -35,6 +36,11 @@ public class PostMsgServiceImpl implements PostMsgService {
 	@Override
 	public void delete(long id) {
 		postMsgRepository.deleteById(id);
+	}
+
+	@Override
+	public Page<PostMsg> getAllPage(Pageable pageable) {
+		return postMsgRepository.findAll(pageable);
 	}
 
 }

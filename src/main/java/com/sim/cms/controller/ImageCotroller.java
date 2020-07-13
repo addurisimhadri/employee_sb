@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -72,7 +71,7 @@ public class ImageCotroller {
 	}
 	@GetMapping(path = { "/getImage/{userId}" })
     public byte[] getImage(HttpServletResponse response,@PathVariable("userId") long userId) throws Exception  {
-		response.setContentType("image/jpeg");
+		//response.setContentType("image/jpeg");
 		ImageModel img =null;
         final Optional<ImageModel> retrievedImage = imageService.findByUserId(userId);
         if(retrievedImage.isPresent()) {
@@ -85,11 +84,12 @@ public class ImageCotroller {
     }
 	@GetMapping(path = { "/getImageM/{userId}" })
     public ImageModel getImageModel(HttpServletResponse response,@PathVariable("userId") long userId) throws Exception  {
-		response.setContentType("image/jpeg");
-		ImageModel img =null;
+		//response.setContentType("image/jpeg");
+		ImageModel img =new ImageModel();
+		log.info("Image ============================"+userId);
         final Optional<ImageModel> retrievedImage = imageService.findByUserId(userId);
         if(retrievedImage.isPresent()) {
-        	log.info("Image Is exist...");
+        	
         	img = new ImageModel(userId,retrievedImage.get().getName(), retrievedImage.get().getType(),
                 decompressBytes(retrievedImage.get().getPicByte()));
         	log.info("Image Is exist...");
