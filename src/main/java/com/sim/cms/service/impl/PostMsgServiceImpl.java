@@ -20,7 +20,7 @@ public class PostMsgServiceImpl implements PostMsgService {
 	
 	@Override
 	public Iterable<PostMsg> getAll(Pageable pageable) {		
-		return postMsgRepository.findAll(pageable);
+		return postMsgRepository.findByOrderByCreatedAtDesc(pageable);
 	}
 
 	@Override

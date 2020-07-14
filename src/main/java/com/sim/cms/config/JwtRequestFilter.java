@@ -38,11 +38,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 		 HttpServletRequest httpRequest = (HttpServletRequest) request;
 		    Enumeration<String> headerNames = httpRequest.getHeaderNames();
 
-		    if (headerNames != null) {
-		            while (headerNames.hasMoreElements()) {
-		                    log.info("Header: " + httpRequest.getHeader(headerNames.nextElement()));
-		            }
-		    }
+		/*
+		 * if (headerNames != null) { while (headerNames.hasMoreElements()) {
+		 * log.info("Header: " + httpRequest.getHeader(headerNames.nextElement())); } }
+		 */
 		
 		
 		log.info("requestTokenHeader:: "+requestTokenHeader);

@@ -36,4 +36,9 @@ public class LikedServiceImpl implements LikedService {
 		return likedRepository.findByPostMsgIdAndUserId(postId, userId);
 	}
 
+	@Override
+	public void delete(long id) {
+		likedRepository.deleteById(id);
+	}
+
 }

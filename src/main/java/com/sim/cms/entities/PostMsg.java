@@ -31,7 +31,7 @@ public class PostMsg {
 	@Transient
 	private String username="";
 	@Transient
-	private ImageModel imageModel=new ImageModel();
+	private byte[] picByte;
 	@Transient
 	private boolean liked;
 	

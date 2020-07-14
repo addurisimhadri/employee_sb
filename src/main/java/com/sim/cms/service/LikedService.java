@@ -11,5 +11,6 @@ public interface LikedService {
 	List<Liked> getAll();
 	Optional<Liked> findByIdAndPostMsgId(long id, long postId);
 	Optional<Liked> findByPostMsgIdAndUserId(long postId,long userId);
+	void delete(long id);
 	
 }
